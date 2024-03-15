@@ -55,7 +55,7 @@ jobs:
               now=`date -Iminutes`
               echo '"last_updated":' \"$now\",
               echo '"release_version":' \"$release_version\",
-              echo '"beta_version":' \"$beta_version\"
+              echo '"beta_version":' \"$beta_version\",
               echo '"dev_version":' \"$dev_version\"
               echo "}"
             ) >publish_data/changed_components.json

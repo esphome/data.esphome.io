@@ -14,7 +14,16 @@ runs:
       run: |
         mkdir output
         ./component-changes/get-changes.sh esphome > output/changed_components.json
-    - uses: actions/upload-artifact@v4.3.3
+    - name: Validate schema
+      uses: cardinalby/schema-validator-action@v3
+      with:
+        file: output/changed_components.json
+        schema: component-changes/schema.json
+    - name: Copy schema to output
+      shell: bash
+      run: cp component-changes/schema.json output/changed_components.schema.json
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4.3.3
       with:
         name: component-changes
         path: output/changed_components.json

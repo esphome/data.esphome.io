@@ -11,10 +11,9 @@ runs:
         path: esphome
     - name: Find changed components
       shell: bash
-      working-directory: esphome
       run: |
         mkdir output
-        ../component-changes/get-changes.sh > output/changed_components.json
+        ./component-changes/get-changes.sh esphome > output/changed_components.json
     - uses: actions/upload-artifact@v4.3.3
       with:
         name: component-changes

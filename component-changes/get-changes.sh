@@ -1,5 +1,9 @@
 #!/bin/bash
 
+esphome_dir=$1
+
+pushd $esphome_dir >/dev/null
+
 git fetch origin dev -q
 git fetch origin release -q
 git fetch origin beta -q
@@ -23,3 +27,5 @@ jq -n -c --arg release_version "$release_version" --arg beta_version "$beta_vers
   "beta_version": $beta_version,
   "dev_version": $dev_version
 }'
+
+popd >/dev/null

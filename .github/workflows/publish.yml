@@ -25,7 +25,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.1.4
-      - uses: ./component-changes
+      - name: Build component changes
+        uses: ./component-changes
 
   consolidate-artifacts:
     runs-on: ubuntu-latest
@@ -37,7 +38,8 @@ jobs:
         with:
           path: output
           merge-multiple: true
-      - uses: actions/upload-pages-artifact@v3.0.1
+      - name: Upload consolidated artifact
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: output
 

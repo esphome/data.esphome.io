@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.esphome.io/changed_components.schema.json",
+  "title": "Changed Components",
+  "description": "Components that are changed between ESPHome release, dev and beta",
+  "type": "object",
+  "properties": {
+    "changed_components": {
+      "description": "The components that are changed",
+      "type": "object",
+      "properties": {
+        "dev": {
+          "description": "The components that are changed in the dev version",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "beta": {
+          "description": "The components that are changed in the beta version",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "last_updated": {
+      "description": "The date when this file was last updated",
+      "type": "string",
+      "format": "date-time"
+    },
+    "release_version": {
+      "description": "The ESPHome release version this file is for",
+      "type": "string"
+    },
+    "beta_version": {
+      "description": "The ESPHome beta version this file is for",
+      "type": "string"
+    },
+    "dev_version": {
+      "description": "The ESPHome dev version this file is for",
+      "type": "string"
+    }
+  }
+}

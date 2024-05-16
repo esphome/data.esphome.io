@@ -1,0 +1,29 @@
+name: Create component changes list
+runs:
+  using: composite
+  steps:
+    - name: Check out release branch from GitHub
+      uses: actions/checkout@v4.1.2
+      with:
+        repository: esphome/esphome
+        ref: release
+        fetch-depth: 500
+        path: esphome
+    - name: Find changed components
+      shell: bash
+      run: |
+        mkdir output
+        ./component-changes/get-changes.sh esphome > output/changed_components.json
+    - name: Validate schema
+      uses: cardinalby/schema-validator-action@v3
+      with:
+        file: output/changed_components.json
+        schema: component-changes/schema.json
+    - name: Copy schema to output
+      shell: bash
+      run: cp component-changes/schema.json output/changed_components.schema.json
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4.3.3
+      with:
+        name: component-changes
+        path: output

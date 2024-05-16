@@ -8,8 +8,10 @@ runs:
         repository: esphome/esphome
         ref: release
         fetch-depth: 500
+        directory: esphome
     - name: Find changed components
       shell: bash
+      working-directory: esphome
       run: |
         git fetch origin dev
         git fetch origin release

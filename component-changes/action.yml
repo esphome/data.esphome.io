@@ -12,32 +12,8 @@ runs:
     - name: Find changed components
       shell: bash
       working-directory: esphome
-      run: |
-        git fetch origin dev
-        git fetch origin release
-        git fetch origin beta
-        git switch release
-        release_version=`grep '^__version__ ' esphome/const.py | sed 's/.*"\([^"]*\)"/\1/'`
-        git switch dev
-        dev_version=`grep '^__version__ ' esphome/const.py | sed 's/.*"\([^"]*\)"/\1/'`
-        git switch beta
-        beta_version=`grep '^__version__ ' esphome/const.py | sed 's/.*"\([^"]*\)"/\1/'`
-        mkdir -p publish_data
-        ( echo '{ "changed_components": {'
-          echo '"dev": [ '
-          git diff origin/dev origin/release --name-only | grep esphome/components | sed 's#esphome/components/##' | sed 's#/.*$##' | sort -u | sed 's/.*/"&"/' | sed '$!s/$/,/'
-          echo "],"
-          echo '"beta": ['
-          git diff origin/beta origin/release --name-only | grep esphome/components | sed 's#esphome/components/##' | sed 's#/.*$##' | sort -u | sed 's/.*/"&"/' | sed '$!s/$/,/'
-          echo "]},"
-          now=`date -Iminutes`
-          echo '"last_updated":' \"$now\",
-          echo '"release_version":' \"$release_version\",
-          echo '"beta_version":' \"$beta_version\",
-          echo '"dev_version":' \"$dev_version\"
-          echo "}"
-        ) >publish_data/changed_components.json
+      run: ../component-changes/get-changes.sh > output/changed_components.json
     - uses: actions/upload-artifact@v4.3.3
       with:
-        name: changed_components
-        path: publish_data/changed_components.json
+        name: component-changes
+        path: output/changed_components.json

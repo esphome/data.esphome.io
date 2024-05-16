@@ -26,4 +26,4 @@ runs:
       uses: actions/upload-artifact@v4.3.3
       with:
         name: component-changes
-        path: output/changed_components.json
+        path: output

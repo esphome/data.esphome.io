@@ -22,7 +22,7 @@ jq -n -c --arg release_version "$release_version" --arg beta_version "$beta_vers
     "dev": $dev_changed,
     "beta": $beta_changed
   },
-  "last_updated": now | strftime("%Y-%m-%dT%H:%M:S%z"),
+  "last_updated": now | strftime("%Y-%m-%dT%H:%M:%S%z"),
   "release_version": $release_version,
   "beta_version": $beta_version,
   "dev_version": $dev_version

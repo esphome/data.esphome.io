@@ -1,3 +1,7 @@
-# A repository for listing components to be changed in upcoming releases.
+# https://data.esphome.io
 
-Potentially could be used to host other static data.
+A repository for generating and hosting various data on ESPHome
+
+## Component changes
+
+A json file is generated and hosted as https://data.esphome.io/changed_components.json

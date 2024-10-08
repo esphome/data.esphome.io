@@ -3,7 +3,7 @@ runs:
   using: composite
   steps:
     - name: Check out release branch from GitHub
-      uses: actions/checkout@v4.2.0
+      uses: actions/checkout@v4.2.1
       with:
         repository: esphome/esphome
         ref: release

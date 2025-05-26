@@ -31,6 +31,7 @@ jobs:
   automations:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         esphome-version:
           - release

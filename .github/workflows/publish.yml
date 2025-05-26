@@ -28,10 +28,27 @@ jobs:
       - name: Build component changes
         uses: ./component-changes
 
+  automations:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        esphome-version:
+          - release
+          - beta
+          - dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+      - name: Build automations
+        uses: ./automations
+        with:
+          version: ${{ matrix.esphome-version }}
+
   consolidate-artifacts:
     runs-on: ubuntu-latest
     needs:
       - component-changes
+      - automations
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4.3.0

@@ -42,5 +42,13 @@
       "description": "The ESPHome dev version this file is for",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "changed_components",
+    "last_updated",
+    "release_version",
+    "beta_version",
+    "dev_version"
+  ],
+  "additionalProperties": false
 }

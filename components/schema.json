@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.esphome.io/components.schema.json",
+  "title": "Components",
+  "description": "List of all components in ESPHome",
+  "type": "object",
+  "properties": {
+    "components": {
+      "description": "The components",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "last_updated": {
+      "description": "The date when this file was last updated",
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "description": "The ESPHome version this file is for",
+      "type": "string"
+    }
+  },
+  "required": [
+    "components",
+    "last_updated",
+    "version"
+  ],
+  "additionalProperties": false
+}

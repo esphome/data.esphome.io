@@ -30,7 +30,13 @@
             "type": "string"
           }
         }
-      }
+      },
+      "required": [
+        "actions",
+        "conditions",
+        "pin_providers"
+      ],
+      "additionalProperties": false
     },
     "last_updated": {
       "description": "The date when this file was last updated",
@@ -41,5 +47,11 @@
       "description": "The ESPHome version this file is for",
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "automations",
+    "last_updated",
+    "version"
+  ],
+  "additionalProperties": false
 }

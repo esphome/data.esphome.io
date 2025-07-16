@@ -1,0 +1,28 @@
+name: Build components.json
+runs:
+  using: composite
+  steps:
+    - name: Check out ESPHome from GitHub
+      uses: actions/checkout@v4.2.2
+      with:
+        repository: esphome/esphome
+        ref: dev
+        path: esphome
+    - name: Build components.json
+      shell: bash
+      run: |
+        mkdir -p output
+        ./components/get-components.sh esphome > output/components.json
+    - name: Validate schema
+      uses: cardinalby/schema-validator-action@3.1.1
+      with:
+        file: output/components.json
+        schema: components/schema.json
+    - name: Copy schema to output
+      shell: bash
+      run: cp components/schema.json output/components.schema.json
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: components
+        path: output

@@ -26,17 +26,17 @@ concurrency:
 jobs:
   changes:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     outputs:
-      component-changes: ${{ steps.changes.outputs.component-changes }}
-      automations: ${{ steps.changes.outputs.automations }}
-      components: ${{ steps.changes.outputs.components }}
+      component-changes: ${{ github.event_name != 'pull_request' || steps.changes.outputs.component-changes }}
+      automations: ${{ github.event_name != 'pull_request' || steps.changes.outputs.automations }}
+      components: ${{ github.event_name != 'pull_request' || steps.changes.outputs.components }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
       - name: Check for changes
         uses: dorny/paths-filter@v3.0.2
         id: changes
+        if: github.event_name == 'pull_request'
         with:
           filters: |
             component-changes:
@@ -52,7 +52,7 @@ jobs:
   component-changes:
     runs-on: ubuntu-latest
     needs: changes
-    if: github.event_name != 'pull_request' || needs.changes.outputs.component-changes == 'true'
+    if: needs.changes.outputs.component-changes == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
@@ -62,7 +62,7 @@ jobs:
   automations:
     runs-on: ubuntu-latest
     needs: changes
-    if: github.event_name != 'pull_request' || needs.changes.outputs.automations == 'true'
+    if: needs.changes.outputs.automations == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -81,7 +81,7 @@ jobs:
   components:
     runs-on: ubuntu-latest
     needs: changes
-    if: github.event_name != 'pull_request' || needs.changes.outputs.components == 'true'
+    if: needs.changes.outputs.components == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2

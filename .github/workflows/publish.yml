@@ -24,8 +24,35 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    outputs:
+      component-changes: ${{ steps.changes.outputs.component-changes }}
+      automations: ${{ steps.changes.outputs.automations }}
+      components: ${{ steps.changes.outputs.components }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+      - name: Check for changes
+        uses: dorny/paths-filter@v3.0.2
+        id: changes
+        with:
+          filters: |
+            component-changes:
+              - 'component-changes/**'
+              - '.github/workflows/publish.yml'
+            automations:
+              - 'automations/**'
+              - '.github/workflows/publish.yml'
+            components:
+              - 'components/**'
+              - '.github/workflows/publish.yml'
+
   component-changes:
     runs-on: ubuntu-latest
+    needs: changes
+    if: github.event_name != 'pull_request' || needs.changes.outputs.component-changes == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
@@ -34,6 +61,8 @@ jobs:
 
   automations:
     runs-on: ubuntu-latest
+    needs: changes
+    if: github.event_name != 'pull_request' || needs.changes.outputs.automations == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -51,6 +80,8 @@ jobs:
 
   components:
     runs-on: ubuntu-latest
+    needs: changes
+    if: github.event_name != 'pull_request' || needs.changes.outputs.components == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
@@ -60,9 +91,11 @@ jobs:
   consolidate-artifacts:
     runs-on: ubuntu-latest
     needs:
+      - changes
       - component-changes
       - automations
       - components
+    if: always() && (needs.component-changes.result == 'success' || needs.automations.result == 'success' || needs.components.result == 'success')
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4.3.0

@@ -21,10 +21,10 @@ runs:
       with:
         working-directory: esphome
         activate-environment: true
-    - name: Set up ESPHome
+    - name: Install ESPHome and requirements
       shell: bash
       working-directory: esphome
-      run: script/setup
+      run: uv pip install -e .
     - name: Build automations.json
       shell: bash
       run: |

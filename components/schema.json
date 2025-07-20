@@ -12,6 +12,20 @@
         "type": "string"
       }
     },
+    "target_platforms": {
+      "description": "Components that are target platforms (have IS_TARGET_PLATFORM = True)",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "platform_components": {
+      "description": "Components that are platform components (have IS_PLATFORM_COMPONENT = True)",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "last_updated": {
       "description": "The date when this file was last updated",
       "type": "string",
@@ -24,6 +38,8 @@
   },
   "required": [
     "components",
+    "target_platforms",
+    "platform_components",
     "last_updated",
     "version"
   ],

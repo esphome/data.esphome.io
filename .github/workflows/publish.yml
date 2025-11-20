@@ -32,7 +32,7 @@ jobs:
       components: ${{ github.event_name != 'pull_request' || steps.changes.outputs.components }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.0
       - name: Check for changes
         uses: dorny/paths-filter@v3.0.2
         id: changes
@@ -55,7 +55,7 @@ jobs:
     if: needs.changes.outputs.component-changes == 'true'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.0
       - name: Build component changes
         uses: ./component-changes
 
@@ -72,7 +72,7 @@ jobs:
           - dev
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.0
       - name: Build automations
         uses: ./automations
         with:
@@ -84,7 +84,7 @@ jobs:
     if: needs.changes.outputs.components == 'true'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.0
       - name: Build components
         uses: ./components
 

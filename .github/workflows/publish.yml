@@ -32,7 +32,7 @@ jobs:
       components: ${{ github.event_name != 'pull_request' || steps.changes.outputs.components }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
       - name: Check for changes
         uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d  # v4.0.1
         id: changes
@@ -55,7 +55,7 @@ jobs:
     if: needs.changes.outputs.component-changes == 'true'
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
       - name: Build component changes
         uses: ./component-changes
 
@@ -72,7 +72,7 @@ jobs:
           - dev
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
       - name: Build automations
         uses: ./automations
         with:
@@ -84,7 +84,7 @@ jobs:
     if: needs.changes.outputs.components == 'true'
     steps:
       - name: Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10  # v6.0.3
       - name: Build components
         uses: ./components
 

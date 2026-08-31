@@ -17,6 +17,9 @@ on:
     branches:
       - main
 
+# Set the default token permissions to none; each job opts in to only what it needs.
+permissions: {}
+
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
@@ -26,6 +29,10 @@ concurrency:
 jobs:
   changes:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # dorny/paths-filter uses the REST API to list changed files on pull_request events
+      pull-requests: read
     outputs:
       component-changes: ${{ github.event_name != 'pull_request' || steps.changes.outputs.component-changes }}
       automations: ${{ github.event_name != 'pull_request' || steps.changes.outputs.automations }}
@@ -51,6 +58,8 @@ jobs:
 
   component-changes:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs: changes
     if: needs.changes.outputs.component-changes == 'true'
     steps:
@@ -61,6 +70,8 @@ jobs:
 
   automations:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs: changes
     if: needs.changes.outputs.automations == 'true'
     strategy:
@@ -80,6 +91,8 @@ jobs:
 
   components:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs: changes
     if: needs.changes.outputs.components == 'true'
     steps:
@@ -90,6 +103,7 @@ jobs:
 
   consolidate-artifacts:
     runs-on: ubuntu-latest
+    permissions: {}
     needs:
       - changes
       - component-changes

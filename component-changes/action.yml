@@ -15,7 +15,7 @@ runs:
         mkdir output
         ./component-changes/get-changes.sh esphome > output/changed_components.json
     - name: Validate schema
-      uses: cardinalby/schema-validator-action@95ce895b6846cc7d931785fcaa46c84816753612  # v3
+      uses: cardinalby/schema-validator-action@95ce895b6846cc7d931785fcaa46c84816753612  # v3.1.2
       with:
         file: output/changed_components.json
         schema: component-changes/schema.json

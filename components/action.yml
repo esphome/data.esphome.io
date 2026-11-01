@@ -22,7 +22,7 @@ runs:
       shell: bash
       run: cp components/schema.json output/components.schema.json
     - name: Upload artifact
-      uses: actions/upload-artifact@v7.0.1
+      uses: actions/upload-artifact@v7.0.2
       with:
         name: components
         path: output

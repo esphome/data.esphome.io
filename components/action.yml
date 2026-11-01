@@ -3,7 +3,7 @@ runs:
   using: composite
   steps:
     - name: Check out ESPHome from GitHub
-      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      uses: actions/checkout@v7.0.1
       with:
         repository: esphome/esphome
         ref: dev
@@ -14,7 +14,7 @@ runs:
         mkdir -p output
         ./components/get-components.sh esphome > output/components.json
     - name: Validate schema
-      uses: cardinalby/schema-validator-action@95ce895b6846cc7d931785fcaa46c84816753612  # 3.1.2
+      uses: cardinalby/schema-validator-action@3.1.2
       with:
         file: output/components.json
         schema: components/schema.json
@@ -22,7 +22,7 @@ runs:
       shell: bash
       run: cp components/schema.json output/components.schema.json
     - name: Upload artifact
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+      uses: actions/upload-artifact@v7.0.1
       with:
         name: components
         path: output

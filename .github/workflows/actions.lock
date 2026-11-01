@@ -11,7 +11,7 @@ workflows:
         - 'actions/setup-python@v7.0.0'
         - 'actions/upload-artifact@v7.0.1'
         - 'actions/upload-pages-artifact@v5.0.0'
-        - 'astral-sh/setup-uv@v10.0.1'
+        - 'astral-sh/setup-uv@v10.3.3'
         - 'cardinalby/schema-validator-action@3.1.2'
         - 'dorny/paths-filter@v4.0.3'
     '.github/workflows/verify-lockfile.yml':
@@ -59,9 +59,9 @@ dependencies:
         repo_id: 496012378
         uses:
             - 'actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f'
-    'astral-sh/setup-uv@v10.0.1':
-        ref: 'v10.0.1'
-        commit: 'sha1-20cfd1bf945f4377ade1205e4dbc17946fc9a30d'
+    'astral-sh/setup-uv@v10.3.3':
+        ref: 'v10.3.3'
+        commit: 'sha1-68559e99cc807c1eb7e9238fd43a15bba460eec2'
         owner_id: 115962839
         repo_id: 846733598
     'cardinalby/schema-validator-action@3.1.2':
